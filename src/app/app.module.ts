@@ -18,8 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/user.reducer';
-//import { Authreducer } from './reducers/auth.reducer';
-import { reducers } from '../app/store';
+import { authReducer } from './reducers/auth.reducer';
+//import { reducers } from '../app/store';
 import { ReadComponent } from './read/read.component';
 import { CreateComponent } from './create/create.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -55,10 +55,11 @@ export function tokenGetter() {
     FormsModule,
     HttpClientModule,
     StoreModule.forRoot({
-      user: reducer
+      user: reducer,
+      auth: authReducer
     }),
     EffectsModule.forRoot(effects),
-    StoreModule.forFeature('products', reducers),
+    //StoreModule.forFeature('products', reducers),
     StoreDevtoolsModule.instrument({
       maxAge: 5
     }),
