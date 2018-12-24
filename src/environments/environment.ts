@@ -3,8 +3,21 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // pusher: {
+  //   key: '4c6d79d7cffadf973b3a',
+  // }
+  // firebaseConfig : {
+  //   apiKey: "AIzaSyD4VLuIFpk0v_kMa7XyYm9_s91QdhHX438",
+  //   authDomain: "clappy-comments.firebaseapp.com",
+  //   databaseURL: "https://clappy-comments.firebaseio.com",
+  //   projectId: "clappy-comments",
+  //   storageBucket: "clappy-comments.appspot.com",
+  //   messagingSenderId: "143445869167"
+  // }
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

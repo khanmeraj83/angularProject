@@ -1,0 +1,14 @@
+<h1 class="page-header">Profile</h1>
+Profile
+
+<div class="right" *ngIf="tutorials">
+
+  <h3>Tutorials</h3>
+  <ul>
+    <li *ngFor="let tutorial of tutorials">
+      <span>{{tutorial.title}}</span>
+      <!-- <button (click)="delTutorial(i)">X</button> -->
+    </li>
+  </ul>
+
+</div>

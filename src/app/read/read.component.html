@@ -1,0 +1,14 @@
+<div class="right" *ngIf="tutorials">
+
+  <h3>Tutorials</h3>
+  <ul>
+    <li  *ngFor="let tutorial of tutorials">
+      <!-- <a >{{ tutorial.title }}</a> -->
+      <span>{{tutorial.title}}</span>
+      <!-- <button (click)="delTutorial(i)">X</button> -->
+    </li>
+  </ul>
+  
+</div>
+
+<!-- | async; let i = index -->
