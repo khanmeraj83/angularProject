@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../app/services/auth.service';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as AuthActions from './../actions/auth.actions';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -20,10 +24,13 @@ export class RegisterComponent implements OnInit {
   usernameValid;
   usernameMessage;
 
+  rexxxx;
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store<any>
   ) {
 
     this.form = this.formBuilder.group({
@@ -120,6 +127,38 @@ export class RegisterComponent implements OnInit {
       }
     }
   }
+  // onRegisterSubmit() {
+  //   this.processing = true;
+  //   this.disableForm();
+  //   const user = {
+  //     email: this.form.get('email').value,
+  //     password: this.form.get('password').value,
+  //     name: this.form.get('username').value
+  //   }
+
+  //   this.authService.registerUser(user).subscribe(data => {
+  //     console.log("response", data);
+
+  //     if (!data.success) {
+  //       this.processing = false;
+  //       this.enableForm();
+  //       if (data.error) {
+  //         this.messageClass = 'alert alert-danger';
+  //         this.message = data.error.errmsg;
+  //       }
+
+  //     } else {
+  //       this.messageClass = 'alert alert-success';
+  //       this.message = "User Register Successfuly";
+  //       setTimeout(() => {
+  //         this.router.navigate(['/login']);
+  //       }, 2000)
+  //     }
+  //   });
+  //   console.log(this.form.get('email').value);
+  //   console.log(this.form.get('password').value);
+  // }
+
   onRegisterSubmit() {
     this.processing = true;
     this.disableForm();
@@ -129,45 +168,52 @@ export class RegisterComponent implements OnInit {
       name: this.form.get('username').value
     }
 
-    this.authService.registerUser(user).subscribe(data => {
-      console.log("response", data);
+    this.store.dispatch(new AuthActions.RegisterUser(user));
 
-      if (!data.success) {
-        this.processing = false;
-        this.enableForm();
-        if (data.error) {
-          this.messageClass = 'alert alert-danger';
-          this.message = data.error.errmsg;
+    this.store.select<any>('auth').subscribe(state => {
+      this.rexxxx = state;
+      console.log("RegisterXX", this.rexxxx);
+
+      if (this.rexxxx.user != null) {
+        if (!this.rexxxx.user.success) {
+          this.processing = false;
+          this.enableForm();
+          if (this.rexxxx.user.error) {
+            this.messageClass = 'alert alert-danger';
+            this.message = this.rexxxx.user.error.errmsg;
+          }
+
+        } else {
+          this.messageClass = 'alert alert-success';
+          this.message = "User Register Successfuly";
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000)
         }
-
-      } else {
-        this.messageClass = 'alert alert-success';
-        this.message = "User Register Successfuly";
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000)
       }
+
+
     });
-    console.log(this.form.get('email').value);
-    console.log(this.form.get('password').value);
+
+
   }
 
-  checkEmail(){
+  checkEmail() {
     const email = this.form.get('email').value;
     //call service here for validating email
 
     //if (!data.success){
-      //this.emailValid = false;
-      //this.emailMessage = data.message;
+    //this.emailValid = false;
+    //this.emailMessage = data.message;
     //}
   }
-  checkUsername(){
+  checkUsername() {
     const email = this.form.get('username').value;
     //call service here for validating username
 
     //if (!data.success){
-      //this.emailValid = false;
-      //this.emailMessage = data.message;
+    //this.emailValid = false;
+    //this.emailMessage = data.message;
     //}
   }
 
