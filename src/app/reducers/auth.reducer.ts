@@ -6,20 +6,34 @@ export interface AuthState {
 }
 
 const initialState: AuthState = {
-     user: null
+    user: null
 }
 
-export const authReducer: (state: AuthState, action: AuthActions.Action) => AuthState = (state = 
-    initialState, action: AuthActions.Action) => {
-        switch(action.type){
-            case AuthActions.SET_CURRENT_USER:
+// export const authReducer: (state: AuthState, action: AuthActions.Action) => AuthState = (state =
+//     initialState, action: AuthActions.Action) => {
+//     switch (action.type) {
+//         case AuthActions.SET_CURRENT_USER:
+//             return {
+//                 ...state,
+//                 user: action.payload
+//             };
+
+//         default:
+//             return state;
+
+//     }
+// }
+
+export function authReducer(state: any = initialState, action: AuthActions.Action) {
+    switch (action.type) {
+        case AuthActions.SET_CURRENT_USER:
             return {
                 ...state,
                 user: action.payload
             };
 
-            default:
-                return state;
+        default:
+            return state;
 
-        }
     }
+}
