@@ -27,6 +27,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { UserEffects } from './effects/user.effects';
 import { AuthEffects } from './effects/auth.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export const effects = [UserEffects, AuthEffects]
 //export const reducers = []
@@ -69,7 +70,8 @@ export function tokenGetter() {
         // whitelistedDomains: ['example.com'],
         // blacklistedRoutes: ['example.com/examplebadroute/']
       }
-    })
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [AuthService, AuthGuard, NotAuthGuard],
   bootstrap: [AppComponent]
